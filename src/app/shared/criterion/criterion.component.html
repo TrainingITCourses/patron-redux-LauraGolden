@@ -1,0 +1,16 @@
+<h4> Criterio de búsqueda </h4>
+<select (change) = "selCriterio($event)" [(value)] = 'seleccionado'>
+    <option value = 1>Estado</option>
+    <option value = 2>Agencia</option>
+    <option value = 3>Tipo misión</option>      
+</select>
+
+<div *ngIf="subCriterios?.length > 0">
+<h4> Seleccione {{textoSeleccion}} </h4>
+
+<select (change) = "selSubCriterio($event)" [value]="seleccionadoSubC">
+    <option *ngFor="let subCriterio of subCriterios; let i=index"   
+            [(value)]="subCriterio.id">{{subCriterio.name}}</option>
+</select>
+</div>
+

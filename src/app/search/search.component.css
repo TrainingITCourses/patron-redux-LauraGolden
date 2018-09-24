@@ -1,0 +1,25 @@
+#page {
+    margin:0px auto;
+    width:900px;
+}
+
+#header{
+  position: fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:50px;
+  background-color:#333;
+  color:#FFFFFF;
+  padding:25px;
+}
+ * html body{
+  overflow:hidden;
+ }
+ #content{
+  align-content: left;
+  height:100%;
+  overflow:auto;
+  padding:200px;
+  width:800px;  
+ }

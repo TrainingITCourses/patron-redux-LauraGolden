@@ -1,0 +1,10 @@
+li {      
+    left: 0;
+    background-color: rgba(233, 231, 231, 0.842);
+    margin: .3em;
+    padding: .3em 0;
+    height: 0.9em;
+    border-radius: 4px;
+    font-family: 'italic-text';   
+  }
+  
