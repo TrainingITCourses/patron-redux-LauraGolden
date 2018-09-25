@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CargaLanzamientos, CargaSubCriterios } from './global-store.actions';
+import { CargaLanzamientos, CargaEstados, CargaAgencias, CargaMisiones } from './global-store.actions';
 import { GlobalStore } from './global-store.state';
 
 @Injectable()
@@ -39,20 +39,22 @@ export class ApiService {
     }
   }
 
-  public getAgencies = (): Observable<any[]> =>
+  public getAgencies = () =>
     this.httpC
       .get('../../assets/launchagencies.json')
       .pipe(map((res: any) => res.agencies))
+      .subscribe(agencies => this.global.dispatch(new CargaAgencias(agencies)))
 
-  public getMissionsTypes = (): Observable<any[]> =>
+  public getMissionsTypes = () =>
     this.httpC
       .get('../../assets/launchmissions.json')
       .pipe(map((res: any) => res.types))
+      .subscribe(missions => this.global.dispatch(new CargaMisiones(missions)))
 
-  public getStatusTypes = (): Observable<any[]> =>
+  public getStatusTypes = () => {
     this.httpC
       .get('../../assets/launchstatus.json')
       .pipe(map((res: any) => res.types))
-
-  
+      .subscribe(statuses => this.global.dispatch(new CargaEstados(statuses)));
+  }
 }

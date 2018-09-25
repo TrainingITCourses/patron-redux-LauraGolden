@@ -1,6 +1,8 @@
 export enum GlobalActionTypes {
     CargaLanzamientos = '[Global] CargaLanzamientos',
-    CargaSubCriterios = '[Global] CargaSubCriterios',
+    CargaEstados = '[Global] CargaEstados',
+    CargaAgencias = '[Global] CargaAgencias',
+    CargaMisiones = '[Global] CargaMisiones',
   }
 
 export interface Action {
@@ -13,9 +15,19 @@ export class CargaLanzamientos implements Action {
     constructor(public readonly payload: any[]) {}
   }
 
-export class CargaSubCriterios implements Action {
-    public readonly type = GlobalActionTypes.CargaSubCriterios;
+export class CargaEstados implements Action {
+    public readonly type = GlobalActionTypes.CargaEstados;
     constructor(public readonly payload: any[]) {}
   }
 
-export type GlobalActions = CargaLanzamientos | CargaSubCriterios;
+export class CargaAgencias implements Action {
+    public readonly type = GlobalActionTypes.CargaAgencias;
+    constructor(public readonly payload: any[]) {}
+  }
+
+export class CargaMisiones implements Action {
+    public readonly type = GlobalActionTypes.CargaMisiones;
+    constructor(public readonly payload: any[]) {}
+  }
+
+export type GlobalActions = CargaLanzamientos | CargaEstados | CargaAgencias | CargaMisiones;

@@ -6,7 +6,9 @@ import { globalStoreReducer } from './global-store.reducer';
 
 export enum GlobalSlideTypes {
   lanzamientos = 'lanzamientos',
-  subCriterios = 'subCriterios',
+  estados = 'estados',
+  agencias = 'agencias',
+  misiones = 'misiones',
 }
 
 @Injectable({
@@ -14,8 +16,11 @@ export enum GlobalSlideTypes {
 })
 export class GlobalStore {
   private state: Global = {...globalInitialState};
+
   private lanzamientos$ = new BehaviorSubject<any>(this.state.lanzamientos);
-  private subCriterios$ = new BehaviorSubject<any>(this.state.subCriterios);
+  private estados$ = new BehaviorSubject<any>(this.state.estados);
+  private agencias$ = new BehaviorSubject<any>(this.state.agencias);
+  private misiones$ = new BehaviorSubject<any>(this.state.misiones);
   constructor() { }
 
 
@@ -26,8 +31,14 @@ export class GlobalStore {
       case GlobalActionTypes.CargaLanzamientos:
         this.lanzamientos$.next([...this.state.lanzamientos]);
         break;
-      case GlobalActionTypes.CargaSubCriterios:
-        this.subCriterios$.next([...this.state.subCriterios]);
+      case GlobalActionTypes.CargaEstados:
+        this.estados$.next([...this.state.estados]);
+        break;
+      case GlobalActionTypes.CargaAgencias:
+        this.agencias$.next([...this.state.agencias]);
+        break;
+      case GlobalActionTypes.CargaMisiones:
+        this.misiones$.next([...this.state.misiones]);
         break;
     }
   };
@@ -36,8 +47,12 @@ export class GlobalStore {
     switch (slice) {
       case GlobalSlideTypes.lanzamientos:
         return [...this.state.lanzamientos];
-      case GlobalSlideTypes.subCriterios:
-        return [...this.state.subCriterios];
+      case GlobalSlideTypes.estados:
+        return [...this.state.estados];
+      case GlobalSlideTypes.agencias:
+        return [...this.state.agencias];
+      case GlobalSlideTypes.misiones:
+        return [...this.state.misiones];
     }
   };
 
@@ -45,8 +60,12 @@ export class GlobalStore {
     switch (slice) {
       case GlobalSlideTypes.lanzamientos:
         return this.lanzamientos$.asObservable();
-      case GlobalSlideTypes.subCriterios:
-        return this.subCriterios$.asObservable();
+      case GlobalSlideTypes.estados:
+        return this.estados$.asObservable();
+      case GlobalSlideTypes.agencias:
+        return this.agencias$.asObservable();
+      case GlobalSlideTypes.misiones:
+        return this.misiones$.asObservable();
     }
   };
 

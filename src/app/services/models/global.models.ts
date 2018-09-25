@@ -1,11 +1,15 @@
 export interface Global {
     lanzamientos: any[];
-    subCriterios: any[];
+    estados: any[];
+    agencias: any[];
+    misiones: any[];
   }
 
   export const globalInitialState: Global = {
     lanzamientos: [],
-    subCriterios: []
+    estados: [],
+    agencias: [],
+    misiones: [],
   };
 
   export enum ModoBusqueda {

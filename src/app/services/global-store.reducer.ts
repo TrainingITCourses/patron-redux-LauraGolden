@@ -10,8 +10,14 @@ export function globalStoreReducer(
     case GlobalActionTypes.CargaLanzamientos:
       result.lanzamientos = action.payload;
       break;
-    case GlobalActionTypes.CargaSubCriterios:
-      result.subCriterios = action.payload;
+    case GlobalActionTypes.CargaEstados:
+      result.estados = action.payload;
+      break;
+    case GlobalActionTypes.CargaAgencias:
+      result.agencias = action.payload;
+      break;
+    case GlobalActionTypes.CargaMisiones:
+      result.misiones = action.payload;
       break;
   }
   return result;
