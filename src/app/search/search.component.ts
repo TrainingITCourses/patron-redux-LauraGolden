@@ -11,7 +11,7 @@ import { GlobalStore, GlobalSlideTypes } from '../services/global-store.state';
   providers: [ApiService]
 })
 export class SearchComponent implements OnInit {
-  public lanzamientos: any[];
+  public lanzamientos$: any[];
   public lanFiltrados: any[] = [];
   public a_subCriterios: any[] = [];
   public seleccionado: ModoBusqueda;
@@ -23,10 +23,9 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.global
       .select$(GlobalSlideTypes.lanzamientos)
-      .subscribe(lanzamientos => (this.lanzamientos = lanzamientos));
+      .subscribe(lanzamientos => (this.lanzamientos$ = lanzamientos));
 
     this.seleccionado = 0;
-    // this.lanzamientos = [];
     console.log('Search_ngOnInit');
   }
 
@@ -52,7 +51,7 @@ export class SearchComponent implements OnInit {
       default:
         this.a_subCriterios = [];
     }
-    this.lanzamientos = [];
+    // this.lanzamientos$ = [];
   }
 
   onSubCriterioSeleccionado = (SubcriterioSel: any) => {
@@ -60,7 +59,7 @@ export class SearchComponent implements OnInit {
     const search: number = parseInt(SubcriterioSel);
     switch (this.criterioActual) {
       case 1: // Estado
-          const filtroEstado = this.lanzamientos.filter(
+          const filtroEstado = this.lanzamientos$.filter(
             function (l) {
               let res: boolean;
               res = false;
@@ -70,10 +69,10 @@ export class SearchComponent implements OnInit {
              return res;
             }
           );
-          this.lanzamientos = filtroEstado;
+          this.lanzamientos$ = filtroEstado;
         break;
       case 2: // Agencia
-        const filtroAgencia = this.lanzamientos.filter(
+        const filtroAgencia = this.lanzamientos$.filter(
             function (l) {
                 let res: boolean;
                 res = false;
@@ -90,10 +89,10 @@ export class SearchComponent implements OnInit {
                 return res;
             }
         );
-        this.lanzamientos = filtroAgencia;
+        this.lanzamientos$ = filtroAgencia;
         break;
       case 3: // Tipo'
-        const filtroTipo = this.lanzamientos.filter(
+        const filtroTipo = this.lanzamientos$.filter(
             function (l) {
                 let res: boolean;
                 res = false;
@@ -105,10 +104,10 @@ export class SearchComponent implements OnInit {
                return res;
             }
         );
-        this.lanzamientos = filtroTipo;
+        this.lanzamientos$ = filtroTipo;
       break;
       default:
-        this.lanzamientos = [];
+        this.lanzamientos$ = [];
     }
   }
 }
