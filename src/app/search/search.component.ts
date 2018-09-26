@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   public lanFiltrados: any[] = [];
   public a_subCriterios: any[] = [];
   public seleccionado: ModoBusqueda;
-  public seleccionadoSubC: any;
+  public a_seleccionadoSubC: any;
   private criterioActual: ModoBusqueda;
 
   constructor(private api: ApiService, private global: GlobalStore) { }
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
 
     this.global
     .select$(GlobalSlideTypes.misiones)
-    .subscribe(a => (this.misiones = a));
+    .subscribe(m => (this.misiones = m));
   }
 
   onCriterioSeleccionado = (criterioSel: ModoBusqueda) => {
@@ -63,31 +63,23 @@ export class SearchComponent implements OnInit {
     this.criterioActual = criterioSel;
    switch (criterioSel) {
       case 1: // Estado
-        // this.api
-        // .getStatusTypes()
-        // .subscribe((res: any[]) => this.a_subCriterios = res);
-        // this.estados$.subscribe((res: any[]) => this.a_subCriterios = res);
         this.a_subCriterios = this.estados;
         break;
       case 2: // Agencia
-        // this.api
-        // .getAgencies()
-        // .subscribe((res: any[]) => this.a_subCriterios = res);
-        // this.agencias$.subscribe((res: any[]) => this.a_subCriterios = res);
         this.a_subCriterios = this.agencias;
         break;
       case 3: // Tipo'
-        // this.api
-        // .getMissionsTypes()
-        // .subscribe((res: any[]) => this.a_subCriterios = res);
-        // this.misiones$.subscribe((res: any[]) => this.a_subCriterios = res);
         this.a_subCriterios = this.misiones;
         break;
       default:
         this.a_subCriterios = [];
     }
     this.lanFiltrados = [];
-    this.seleccionadoSubC = -1;
+    if (this.a_seleccionadoSubC === -1) {
+      this.a_seleccionadoSubC = undefined;
+    } else {
+      this.a_seleccionadoSubC = -1;
+    }
   }
 
   onSubCriterioSeleccionado = (SubcriterioSel: any) => {
@@ -144,6 +136,7 @@ export class SearchComponent implements OnInit {
       break;
       default:
         this.lanFiltrados = [];
+        this.a_seleccionadoSubC = -1;
     }
   }
 }

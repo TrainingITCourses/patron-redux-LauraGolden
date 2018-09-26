@@ -10,10 +10,9 @@ import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy
 export class CriterionComponent implements OnInit {
   @Input() public subCriterios: any[];
   @Input() public seleccionado = 0;
-  @Input() public seleccionadoSubC = 0;
+  @Input() public seleccionadoSubC = -1;
   @Output() public criterioSeleccionado = new EventEmitter<number>();
   @Output() public subCriterioSeleccionado = new EventEmitter<string>();
-  // private _seleccionadoSubC = '';
 
   textoSeleccion: string;
   constructor() { }
@@ -38,20 +37,10 @@ export class CriterionComponent implements OnInit {
       this.textoSeleccion = 'un tipo de misión';
       break;
     }
-    // this._seleccionadoSubC = '';
     this.criterioSeleccionado.next(modo);
-    // this.subCriterios = [];
   }
 
   selSubCriterio($event) {
     this.subCriterioSeleccionado.next($event.srcElement.value);
   }
-
-  // get seleccionadoSubC() {
-  //   return this._seleccionadoSubC;
-  // }
-  // set seleccionadoSubC(value) {
-  //     this._seleccionadoSubC = value;
-  //     this.selSubCriterio(value);
-  // }
 }
