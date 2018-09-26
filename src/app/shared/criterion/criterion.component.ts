@@ -1,5 +1,5 @@
-import { ModoBusqueda } from '../../services/models/global.models';
 import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ModoBusqueda } from '../../app.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

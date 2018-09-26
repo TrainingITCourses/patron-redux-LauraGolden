@@ -11,9 +11,3 @@ export interface Global {
     agencias: [],
     misiones: [],
   };
-
-  export enum ModoBusqueda {
-    Estado = 1,
-    Agencia ,
-    Tipo
-  }

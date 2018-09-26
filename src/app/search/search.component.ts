@@ -1,8 +1,10 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { ModoBusqueda, Global } from '../services/models/global.models';
+import { Global } from '../services/models/global.models';
 import { GlobalStore, GlobalSlideTypes } from '../services/global-store.state';
 import { Observable } from 'rxjs';
+import { ModoBusqueda } from '../app.component';
+
 
 
 @Component({
@@ -75,6 +77,8 @@ export class SearchComponent implements OnInit {
         this.a_subCriterios = [];
     }
     this.lanFiltrados = [];
+
+    // unica forma que he encontrado para que se traslade el cambio al componente criterion y se limpie la lista de subcriterios
     if (this.a_seleccionadoSubC === -1) {
       this.a_seleccionadoSubC = undefined;
     } else {

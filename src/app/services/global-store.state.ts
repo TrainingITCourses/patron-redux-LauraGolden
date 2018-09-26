@@ -43,18 +43,19 @@ export class GlobalStore {
     }
   };
 
-  public selectSnapShot = (slice: GlobalSlideTypes) => {
-    switch (slice) {
-      case GlobalSlideTypes.lanzamientos:
-        return [...this.state.lanzamientos];
-      case GlobalSlideTypes.estados:
-        return [...this.state.estados];
-      case GlobalSlideTypes.agencias:
-        return [...this.state.agencias];
-      case GlobalSlideTypes.misiones:
-        return [...this.state.misiones];
-    }
-  };
+  // esto en principio no hace falta porque ya se le pasa en el dispacth
+  // public getSnapShot = (slice: GlobalSlideTypes) => {
+  //   switch (slice) {
+  //     case GlobalSlideTypes.lanzamientos:
+  //       return [...this.state.lanzamientos];
+  //     case GlobalSlideTypes.estados:
+  //       return [...this.state.estados];
+  //     case GlobalSlideTypes.agencias:
+  //       return [...this.state.agencias];
+  //     case GlobalSlideTypes.misiones:
+  //       return [...this.state.misiones];
+  //   }
+  // };
 
   public select$ = (slice: GlobalSlideTypes) => {
     switch (slice) {

@@ -8,21 +8,7 @@ import { GlobalStore } from './global-store.state';
 @Injectable()
 export class ApiService {
   private key = 'launches';
-  // public launches: any[];
-  // public statuses: any[];
-
-  constructor(private httpC: HttpClient, private global: GlobalStore) {
-    // const localLanzamientos =  localStorage.getItem(this.key);
-    // if (localLanzamientos) {
-    //   this.global.dispatch(new CargaLanzamientos(JSON.parse(localLanzamientos)));
-    // } else {
-    //   this.getLaunches()
-    //   // .subscribe((res: any[]) => this.launches = res);
-    //   .subscribe(launches => {
-    //     this.global.dispatch(new CargaLanzamientos(launches));
-    //   });
-    // }
-  }
+  constructor(private httpC: HttpClient, private global: GlobalStore) { }
 
   public getLaunches = () => {
     const localLaunches = localStorage.getItem(this.key);
