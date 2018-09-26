@@ -12,14 +12,15 @@ import { Observable } from 'rxjs';
   providers: [ApiService]
 })
 export class SearchComponent implements OnInit {
-  public lanzamientos$: any[];
+  public lanzamientos: any[];
   public estados: any[];
-  public agencias$: Observable<any>;
-  public misiones$: Observable<any>;
+  public agencias: any;
+  public misiones: any;
 
-  public lanFiltrados$: any[] = [];
+  public lanFiltrados: any[] = [];
   public a_subCriterios: any[] = [];
   public seleccionado: ModoBusqueda;
+  public seleccionadoSubC: any;
   private criterioActual: ModoBusqueda;
 
   constructor(private api: ApiService, private global: GlobalStore) { }
@@ -42,19 +43,19 @@ export class SearchComponent implements OnInit {
   private cargaObservables() {
     this.global
     .select$(GlobalSlideTypes.lanzamientos)
-    .subscribe(l => (this.lanzamientos$ = l));
+    .subscribe(l => (this.lanzamientos = l));
 
     this.global
     .select$(GlobalSlideTypes.estados)
-    .subscribe(estados => (this.estados = estados));
+    .subscribe(e => (this.estados = e));
 
     this.global
     .select$(GlobalSlideTypes.agencias)
-    .subscribe(a => (this.agencias$ = a));
+    .subscribe(a => (this.agencias = a));
 
     this.global
     .select$(GlobalSlideTypes.misiones)
-    .subscribe(a => (this.misiones$ = a));
+    .subscribe(a => (this.misiones = a));
   }
 
   onCriterioSeleccionado = (criterioSel: ModoBusqueda) => {
@@ -72,18 +73,21 @@ export class SearchComponent implements OnInit {
         // this.api
         // .getAgencies()
         // .subscribe((res: any[]) => this.a_subCriterios = res);
-        this.agencias$.subscribe((res: any[]) => this.a_subCriterios = res);
+        // this.agencias$.subscribe((res: any[]) => this.a_subCriterios = res);
+        this.a_subCriterios = this.agencias;
         break;
       case 3: // Tipo'
         // this.api
         // .getMissionsTypes()
         // .subscribe((res: any[]) => this.a_subCriterios = res);
-        this.misiones$.subscribe((res: any[]) => this.a_subCriterios = res);
+        // this.misiones$.subscribe((res: any[]) => this.a_subCriterios = res);
+        this.a_subCriterios = this.misiones;
         break;
       default:
         this.a_subCriterios = [];
     }
-    // this.lanzamientos$ = [];
+    this.lanFiltrados = [];
+    this.seleccionadoSubC = -1;
   }
 
   onSubCriterioSeleccionado = (SubcriterioSel: any) => {
@@ -91,7 +95,7 @@ export class SearchComponent implements OnInit {
     const search: number = parseInt(SubcriterioSel);
     switch (this.criterioActual) {
       case 1: // Estado
-          const filtroEstado = this.lanzamientos$.filter(
+          const filtroEstado = this.lanzamientos.filter(
             function (l) {
               let res: boolean;
               res = false;
@@ -101,10 +105,10 @@ export class SearchComponent implements OnInit {
              return res;
             }
           );
-          this.lanFiltrados$ = filtroEstado;
+          this.lanFiltrados = filtroEstado;
         break;
       case 2: // Agencia
-        const filtroAgencia = this.lanzamientos$.filter(
+        const filtroAgencia = this.lanzamientos.filter(
             function (l) {
                 let res: boolean;
                 res = false;
@@ -121,10 +125,10 @@ export class SearchComponent implements OnInit {
                 return res;
             }
         );
-        this.lanFiltrados$ = filtroAgencia;
+        this.lanFiltrados = filtroAgencia;
         break;
       case 3: // Tipo'
-        const filtroTipo = this.lanzamientos$.filter(
+        const filtroTipo = this.lanzamientos.filter(
             function (l) {
                 let res: boolean;
                 res = false;
@@ -136,10 +140,10 @@ export class SearchComponent implements OnInit {
                return res;
             }
         );
-        this.lanFiltrados$ = filtroTipo;
+        this.lanFiltrados = filtroTipo;
       break;
       default:
-        this.lanFiltrados$ = this.lanFiltrados$;
+        this.lanFiltrados = [];
     }
   }
 }

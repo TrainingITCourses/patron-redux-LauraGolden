@@ -4,13 +4,14 @@
             <h1 style = "color:#d18017" align="center">{{titulo}}</h1>
         </div>
         <app-criterion
-            [seleccionado] = "seleccionado"                       
+            [seleccionado] = "seleccionado"   
+            [seleccionadoSubC]= "seleccionadoSubC"
             [subCriterios]= "a_subCriterios"
             (criterioSeleccionado)="onCriterioSeleccionado($event)"
             (subCriterioSeleccionado)="onSubCriterioSeleccionado($event)" >
         </app-criterion>        
         <app-launches-list             
-            [lanzamientos]="lanFiltrados$">
+            [lanzamientos]="lanFiltrados">
         </app-launches-list>
     </div>   
 </div>
