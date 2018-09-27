@@ -5,12 +5,17 @@
     <option value = 3>Tipo misión</option>      
 </select>
 
-<div *ngIf="subCriterios?.length > 0">
+<div *ngIf="valoresC?.length > 0">
 <h4> Seleccione {{textoSeleccion}} </h4>
 
-<select (change) = "selSubCriterio($event)" [(value)]='seleccionadoSubC'>
+<!-- <select (change) = "selSubCriterio($event)" [(value)]='seleccionadoSubC'>
     <option *ngFor="let subCriterio of subCriterios; let i=index"   
             [(value)]="subCriterio.id">{{subCriterio.name}}</option>
+</select> -->
+<select (change)="selSubCriterio($event)" [(value)]='seleccionadoSubC'>        
+    <option *ngFor="let valorC of valoresC" [value]="valorC.id">
+        <span>{{valorC.name}}</span>
+    </option>
 </select>
 </div>
 

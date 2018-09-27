@@ -8,7 +8,7 @@ import { ModoBusqueda } from '../../app.component';
   styleUrls: ['./criterion.component.css']
 })
 export class CriterionComponent implements OnInit {
-  @Input() public subCriterios: any[];
+  @Input() public valoresC: any[];
   @Input() public seleccionado = 0;
   @Input() public seleccionadoSubC = -1;
   @Output() public criterioSeleccionado = new EventEmitter<number>();
@@ -18,7 +18,6 @@ export class CriterionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // this.seleccionado = 0;
     console.log('Criterion_ngOnInit');
   }
 

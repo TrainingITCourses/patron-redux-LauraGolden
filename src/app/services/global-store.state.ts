@@ -9,6 +9,8 @@ export enum GlobalSlideTypes {
   estados = 'estados',
   agencias = 'agencias',
   misiones = 'misiones',
+  criterios = 'criterios',
+  valores = 'valores',
 }
 
 @Injectable({
@@ -21,6 +23,8 @@ export class GlobalStore {
   private estados$ = new BehaviorSubject<any>(this.state.estados);
   private agencias$ = new BehaviorSubject<any>(this.state.agencias);
   private misiones$ = new BehaviorSubject<any>(this.state.misiones);
+  private criterios$ = new BehaviorSubject<any>(this.state.criterios);
+  private valores$ = new BehaviorSubject<any>(this.state.valores);
   constructor() { }
 
 
@@ -32,30 +36,36 @@ export class GlobalStore {
         this.lanzamientos$.next([...this.state.lanzamientos]);
         break;
       case GlobalActionTypes.CargaEstados:
-        this.estados$.next([...this.state.estados]);
+        this.valores$.next([...this.state.estados]);
         break;
       case GlobalActionTypes.CargaAgencias:
-        this.agencias$.next([...this.state.agencias]);
+        this.valores$.next([...this.state.agencias]);
         break;
       case GlobalActionTypes.CargaMisiones:
-        this.misiones$.next([...this.state.misiones]);
+        this.valores$.next([...this.state.misiones]);
+        break;
+      case GlobalActionTypes.CargaValores:
+        this.valores$.next([...this.state.valores]);
         break;
     }
   };
 
-  // esto en principio no hace falta porque ya se le pasa en el dispacth
-  // public getSnapShot = (slice: GlobalSlideTypes) => {
-  //   switch (slice) {
-  //     case GlobalSlideTypes.lanzamientos:
-  //       return [...this.state.lanzamientos];
-  //     case GlobalSlideTypes.estados:
-  //       return [...this.state.estados];
-  //     case GlobalSlideTypes.agencias:
-  //       return [...this.state.agencias];
-  //     case GlobalSlideTypes.misiones:
-  //       return [...this.state.misiones];
-  //   }
-  // };
+  public getSnapShot = (slice: GlobalSlideTypes) => {
+    switch (slice) {
+      case GlobalSlideTypes.lanzamientos:
+        return [...this.state.lanzamientos];
+      case GlobalSlideTypes.estados:
+        return [...this.state.estados];
+      case GlobalSlideTypes.agencias:
+        return [...this.state.agencias];
+      case GlobalSlideTypes.misiones:
+        return [...this.state.misiones];
+      case GlobalSlideTypes.criterios:
+        return [...this.state.criterios];
+      case GlobalSlideTypes.valores:
+        return [...this.state.valores];
+    }
+  };
 
   public select$ = (slice: GlobalSlideTypes) => {
     switch (slice) {
@@ -67,6 +77,10 @@ export class GlobalStore {
         return this.agencias$.asObservable();
       case GlobalSlideTypes.misiones:
         return this.misiones$.asObservable();
+      case GlobalSlideTypes.criterios:
+        return this.criterios$.asObservable();
+      case GlobalSlideTypes.valores:
+        return this.valores$.asObservable();
     }
   };
 
