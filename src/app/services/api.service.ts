@@ -32,7 +32,7 @@ export class ApiService {
   public getAgencies () {
     let agencies = this.global.getSnapShot(GlobalSlideTypes.agencias);
     if (agencies.length > 0) {
-      return [...agencies];
+      this.global.dispatch(new CargaAgencias([...agencies]));
     } else {
       this.httpC
       .get('../../assets/launchagencies.json')
@@ -44,7 +44,7 @@ export class ApiService {
   public getMissionsTypes () {
     let missions = this.global.getSnapShot(GlobalSlideTypes.misiones);
     if (missions.length > 0) {
-      return [...missions];
+      this.global.dispatch(new CargaMisiones([...missions]));
     } else {
       this.httpC
       .get('../../assets/launchmissions.json')
@@ -56,7 +56,7 @@ export class ApiService {
   public getStatusTypes() {
     let states = this.global.getSnapShot(GlobalSlideTypes.estados);
     if (states.length > 0) {
-      return [...states];
+      this.global.dispatch(new CargaEstados([...states]));
     } else {
       this.httpC
       .get('../../assets/launchstatus.json')
@@ -64,7 +64,6 @@ export class ApiService {
       .subscribe(statuses => this.global.dispatch(new CargaEstados(statuses)));
     }
   }
-
 
   public getCriterio(criterio: ModoBusqueda) {
     switch (criterio) {
@@ -97,38 +96,16 @@ export class ApiService {
     this.httpC
     .get('../../assets/launchlibrary.json')
     .pipe(map((res: any) =>
-        res.lanzamientos.filter(lan => {
+        res.launches.filter(lan => {
           switch (criterio) {
             case 1: // 'Estado':
-              // let res1: boolean;
-              // res = false;
-              // if (lan.status !== undefined) {
-              //   return lan.status === valor;
-              // }
               return this.filtraEstado(lan, Number(valor));
-            case 2: // 'Estado':
-              let res2: boolean;
-              res = false;
-              if (lan.rocket !== undefined && lan.rocket !== null) {
-                if (lan.rocket.agencies !== undefined && lan.rocket.agencies !== null) {
-                  if (lan.rocket.agencies !== undefined && lan.rocket.agencies !== null) {}
-                  if (lan.rocket.agencies.length !== null && lan.rocket.agencies.length !== undefined) {
-                    if (lan.rocket.agencies.length > 0) {
-                      return lan.rocket.agencies[0].id === valor;
-                    }
-                  }
-                }
-              }
-              break;
-            case 3: // 'Tipo':
-              let res3: boolean;
-              res = false;
-              if (lan.missions !== undefined) {
-                if (lan.missions.length > 0) {
-                  return lan.missions[0].type === valor;
-                }
-              }
-              break;
+            case 2: // 'Agencia':
+              return this.filtraAgencia(lan, Number(valor));
+            case 3: // 'Tipo mision':
+              return this.filtraMision(lan, Number(valor));
+            default:
+              return [];
           }
         })
       )
@@ -138,6 +115,31 @@ export class ApiService {
   }
 
   private filtraEstado(lanzamiento: any, valor: number): boolean {
-    return lanzamiento.status === valor;
+    return (lanzamiento.status === valor);
+  }
+  private filtraAgencia(lanzamiento: any, valor: number): boolean {
+      let res: boolean;
+      res = false;
+      if (lanzamiento.rocket !== undefined && lanzamiento.rocket !== null) {
+        if (lanzamiento.rocket.agencies !== undefined && lanzamiento.rocket.agencies !== null) {
+          if (lanzamiento.rocket.agencies !== undefined && lanzamiento.rocket.agencies !== null) {}
+          if (lanzamiento.rocket.agencies.length !== null && lanzamiento.rocket.agencies.length !== undefined) {
+            if (lanzamiento.rocket.agencies.length > 0) {
+              res = lanzamiento.rocket.agencies[0].id === valor;
+            }
+          }
+        }
+      }
+      return res;
+  }
+  private filtraMision(lanzamiento: any, valor: number): boolean {
+      let res: boolean;
+      res = false;
+      if (lanzamiento.missions !== undefined) {
+        if (lanzamiento.missions.length > 0) {
+          res = lanzamiento.missions[0].type === valor;
+        }
+      }
+      return res;
   }
 }

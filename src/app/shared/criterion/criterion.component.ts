@@ -9,8 +9,8 @@ import { ModoBusqueda } from '../../app.component';
 })
 export class CriterionComponent implements OnInit {
   @Input() public valoresC: any[];
-  @Input() public seleccionado = 0;
-  @Input() public seleccionadoSubC = -1;
+  // @Input() public seleccionado = 0;
+  // @Input() public seleccionadoSubC = -1;
   @Output() public criterioSeleccionado = new EventEmitter<number>();
   @Output() public subCriterioSeleccionado = new EventEmitter<string>();
 
@@ -22,9 +22,7 @@ export class CriterionComponent implements OnInit {
   }
 
   selCriterio($event) {
-    let modo: number;
-    modo = parseInt($event.srcElement.value)
-
+    const modo: number = Number($event.srcElement.value);
     switch (modo) {
     case 1:
       this.textoSeleccion = 'un estado';

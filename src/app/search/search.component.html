@@ -3,9 +3,7 @@
         <div id="header">
             <h1 style = "color:#d18017" align="center">{{titulo}}</h1>
         </div>
-        <app-criterion
-            [seleccionado] = "seleccionado"   
-            [seleccionadoSubC]= "a_seleccionadoSubC"
+        <app-criterion            
             [valoresC] = "valores$ | async"            
             (criterioSeleccionado)="onCriterioSeleccionado($event)"
             (subCriterioSeleccionado)="onSubCriterioSeleccionado($event)" >
@@ -15,3 +13,5 @@
         </app-launches-list>
     </div>   
 </div>
+<!-- [seleccionado] = "seleccionado"   
+            [seleccionadoSubC]= "a_seleccionadoSubC" -->
