@@ -63,25 +63,29 @@ export class ApiService {
   }
 
   public getFilterLaunches(criterio: ModoBusqueda, valor) {
-    this.httpC
-    .get('../../assets/launchlibrary.json')
-    .pipe(map((res: any) =>
-        res.launches.filter(lan => {
-          switch (criterio) {
-            case 1: // 'Estado':
-              return this.filtraEstados(lan, Number(valor));
-            case 2: // 'Agencia':
-              return this.filtraAgencias(lan, Number(valor));
-            case 3: // 'Tipo mision':
-              return this.filtraMisiones(lan, Number(valor));
-            default:
-              return [];
-          }
-        })
-      )
-    ).subscribe((lanzamientos: any) => {
-      this.global.dispatch(new CargaLanzamientos(lanzamientos));
-    });
+    if (valor === 0) {
+      this.global.dispatch(new CargaLanzamientos([]));
+    } else {
+      this.httpC
+      .get('../../assets/launchlibrary.json')
+      .pipe(map((res: any) =>
+          res.launches.filter(lan => {
+            switch (criterio) {
+              case 1: // 'Estado':
+                return this.filtraEstados(lan, Number(valor));
+              case 2: // 'Agencia':
+                return this.filtraAgencias(lan, Number(valor));
+              case 3: // 'Tipo mision':
+                return this.filtraMisiones(lan, Number(valor));
+              default:
+                return [];
+            }
+          })
+        )
+      ).subscribe((lanzamientos: any) => {
+        this.global.dispatch(new CargaLanzamientos(lanzamientos));
+      });
+    }
   }
 
   private filtraEstados(lanzamiento: any, valor: number): boolean {
