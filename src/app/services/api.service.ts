@@ -1,36 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargaLanzamientos, CargaEstados, CargaAgencias, CargaMisiones } from './global-store.actions';
 import { GlobalStore, GlobalSlideTypes } from './global-store.state';
 import { ModoBusqueda } from '../app.component';
 
 
-
 @Injectable()
 export class ApiService {
-  private key = 'launches';
   constructor(private httpC: HttpClient, private global: GlobalStore) { }
 
-  // public getLaunches = () => {
-  //   const localLaunches = localStorage.getItem(this.key);
-  //   if (localLaunches) {
-  //     this.global.dispatch(new CargaLanzamientos(JSON.parse(localLaunches)));
-  //   } else {
-  //     this.httpC
-  //       .get('../../assets/launchlibrary.json')
-  //       .pipe(map((res: any) => res.launches))
-  //       .subscribe(launches => {
-  //         localStorage.setItem(this.key, JSON.stringify(launches));
-  //         this.global.dispatch(new CargaLanzamientos(launches));
-  //       });
-  //   }
-  // }
-
-  
   public getAgencies () {
-    let agencies = this.global.getSnapShot(GlobalSlideTypes.agencias);
+    const agencies = this.global.getSnapShot(GlobalSlideTypes.agencias);
     if (agencies.length > 0) {
       this.global.dispatch(new CargaAgencias([...agencies]));
     } else {
@@ -42,7 +23,7 @@ export class ApiService {
     }
 
   public getMissionsTypes () {
-    let missions = this.global.getSnapShot(GlobalSlideTypes.misiones);
+    const missions = this.global.getSnapShot(GlobalSlideTypes.misiones);
     if (missions.length > 0) {
       this.global.dispatch(new CargaMisiones([...missions]));
     } else {
@@ -54,7 +35,7 @@ export class ApiService {
   }
 
   public getStatusTypes() {
-    let states = this.global.getSnapShot(GlobalSlideTypes.estados);
+    const states = this.global.getSnapShot(GlobalSlideTypes.estados);
     if (states.length > 0) {
       this.global.dispatch(new CargaEstados([...states]));
     } else {
@@ -65,7 +46,7 @@ export class ApiService {
     }
   }
 
-  public getCriterio(criterio: ModoBusqueda) {
+  public getCriteria(criterio: ModoBusqueda) {
     switch (criterio) {
       case 1 : // 'Estado':
         this.getStatusTypes();
@@ -77,33 +58,22 @@ export class ApiService {
         this.getMissionsTypes();
         break;
     }
+    // una vez seleccionado el criterio debemos limpiar los lanzamientos listados por el criterio anterior
+    this.global.dispatch(new CargaLanzamientos([]));
   }
 
   public getFilterLaunches(criterio: ModoBusqueda, valor) {
-    // const localLaunches = localStorage.getItem(this.key);
-    // if (localLaunches) {
-    //   this.global.dispatch(new CargaLanzamientos(JSON.parse(localLaunches)));
-    // } else {
-    //   this.httpC
-    //     .get('../../assets/launchlibrary.json')
-    //     .pipe(map((res: any) => res.launches))
-    //     .subscribe(launches => {
-    //       localStorage.setItem(this.key, JSON.stringify(launches));
-    //       this.global.dispatch(new CargaLanzamientos(launches));
-    //     });
-    // }
-
     this.httpC
     .get('../../assets/launchlibrary.json')
     .pipe(map((res: any) =>
         res.launches.filter(lan => {
           switch (criterio) {
             case 1: // 'Estado':
-              return this.filtraEstado(lan, Number(valor));
+              return this.filtraEstados(lan, Number(valor));
             case 2: // 'Agencia':
-              return this.filtraAgencia(lan, Number(valor));
+              return this.filtraAgencias(lan, Number(valor));
             case 3: // 'Tipo mision':
-              return this.filtraMision(lan, Number(valor));
+              return this.filtraMisiones(lan, Number(valor));
             default:
               return [];
           }
@@ -114,10 +84,10 @@ export class ApiService {
     });
   }
 
-  private filtraEstado(lanzamiento: any, valor: number): boolean {
+  private filtraEstados(lanzamiento: any, valor: number): boolean {
     return (lanzamiento.status === valor);
   }
-  private filtraAgencia(lanzamiento: any, valor: number): boolean {
+  private filtraAgencias(lanzamiento: any, valor: number): boolean {
       let res: boolean;
       res = false;
       if (lanzamiento.rocket !== undefined && lanzamiento.rocket !== null) {
@@ -132,7 +102,7 @@ export class ApiService {
       }
       return res;
   }
-  private filtraMision(lanzamiento: any, valor: number): boolean {
+  private filtraMisiones(lanzamiento: any, valor: number): boolean {
       let res: boolean;
       res = false;
       if (lanzamiento.missions !== undefined) {

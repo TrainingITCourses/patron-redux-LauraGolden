@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { Global } from '../services/models/global.models';
 import { GlobalStore, GlobalSlideTypes } from '../services/global-store.state';
 import { Observable } from 'rxjs';
 import { ModoBusqueda } from '../app.component';
@@ -36,12 +35,9 @@ export class SearchComponent implements OnInit {
 
   onCriterioSeleccionado (criterioSel: ModoBusqueda) {
     console.log('criterio seleccionado: ' + criterioSel);
-    // cuando seleccionen de nuevo un criterio, se limpian los subcriterios y como consecuencia, también
-    // tenemos que limpiar los lanzamientos...
-    // this.api.getFilterLaunches(this.criterioActual, -1);
 
     this.criterioActual = criterioSel;
-    this.api.getCriterio(criterioSel);
+    this.api.getCriteria(criterioSel);
   }
 
   onSubCriterioSeleccionado = (SubcriterioSel: Number) => {
