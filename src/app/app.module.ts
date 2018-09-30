@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SearchComponent} from './search/search.component';
 import { LaunchesListComponent } from './shared/launches-list/launches-list.component';
 import { CriterionComponent } from './shared/criterion/criterion.component';
+import { CounterComponent } from './shared/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { CriterionComponent } from './shared/criterion/criterion.component';
     SearchComponent,
     LaunchesListComponent,
     CriterionComponent,
+    CounterComponent,
   ],
   imports: [
     BrowserModule,

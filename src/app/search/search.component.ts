@@ -2,8 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core'
 import { ApiService } from '../services/api.service';
 import { GlobalStore, GlobalSlideTypes } from '../services/global-store.state';
 import { Observable } from 'rxjs';
-import { ModoBusqueda } from '../app.component';
-
+import { ModoBusqueda } from '../shared/criterion/criterion-modo';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +16,6 @@ export class SearchComponent implements OnInit {
   public criterios$: Observable<any>;
   public valores$: Observable<any>;
   public seleccionado: ModoBusqueda;
-
   private criterioActual: ModoBusqueda;
 
   constructor(private api: ApiService, private global: GlobalStore) { }

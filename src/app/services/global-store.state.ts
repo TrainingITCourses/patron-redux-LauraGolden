@@ -9,7 +9,6 @@ export enum GlobalSlideTypes {
   estados = 'estados',
   agencias = 'agencias',
   misiones = 'misiones',
-  criterios = 'criterios',
   valores = 'valores',
 }
 
@@ -23,7 +22,6 @@ export class GlobalStore {
   private estados$ = new BehaviorSubject<any>(this.state.estados);
   private agencias$ = new BehaviorSubject<any>(this.state.agencias);
   private misiones$ = new BehaviorSubject<any>(this.state.misiones);
-  private criterios$ = new BehaviorSubject<any>(this.state.criterios);
   private valores$ = new BehaviorSubject<any>(this.state.valores);
   constructor() { }
 
@@ -48,7 +46,7 @@ export class GlobalStore {
         this.valores$.next([...this.state.valores]);
         break;
     }
-  };
+  }
 
   public getSnapShot = (slice: GlobalSlideTypes) => {
     switch (slice) {
@@ -60,12 +58,11 @@ export class GlobalStore {
         return [...this.state.agencias];
       case GlobalSlideTypes.misiones:
         return [...this.state.misiones];
-      case GlobalSlideTypes.criterios:
-        return [...this.state.criterios];
       case GlobalSlideTypes.valores:
         return [...this.state.valores];
     }
-  };
+  }
+
 
   public select$ = (slice: GlobalSlideTypes) => {
     switch (slice) {
@@ -77,11 +74,9 @@ export class GlobalStore {
         return this.agencias$.asObservable();
       case GlobalSlideTypes.misiones:
         return this.misiones$.asObservable();
-      case GlobalSlideTypes.criterios:
-        return this.criterios$.asObservable();
       case GlobalSlideTypes.valores:
         return this.valores$.asObservable();
     }
-  };
+  }
 
 }

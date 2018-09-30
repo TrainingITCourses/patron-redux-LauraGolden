@@ -19,9 +19,6 @@ export function globalStoreReducer(
     case GlobalActionTypes.CargaMisiones:
       result.misiones = action.payload;
       break;
-    case GlobalActionTypes.CargaCriterios:
-      result.criterios = action.payload;
-      break;
     case GlobalActionTypes.CargaValores:
       result.valores = action.payload;
       break;

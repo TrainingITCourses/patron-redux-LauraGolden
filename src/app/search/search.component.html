@@ -7,9 +7,12 @@
             [valoresC] = "valores$ | async"            
             (criterioSeleccionado)="onCriterioSeleccionado($event)"
             (subCriterioSeleccionado)="onSubCriterioSeleccionado($event)" >
-        </app-criterion>        
+        </app-criterion>     
+
+        <h4> Lista de resultados </h4>
+        <app-counter [Lanzamientos]="lanFiltrados$ | async"></app-counter>   
         <app-launches-list             
-            [lanzamientos]="lanFiltrados$ | async">
+            [lanzamientos]="lanFiltrados$ | async">   
         </app-launches-list>
     </div>   
 </div>

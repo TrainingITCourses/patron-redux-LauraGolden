@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-launches-list',
@@ -8,6 +9,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 })
 export class LaunchesListComponent implements OnInit {
   @Input() public lanzamientos: any[];
+
   constructor() {}
 
   ngOnInit() {

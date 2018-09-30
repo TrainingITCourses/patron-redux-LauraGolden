@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ModoBusqueda } from '../../app.component';
+import { ModoBusqueda } from './criterion-modo';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,12 +9,11 @@ import { ModoBusqueda } from '../../app.component';
 })
 export class CriterionComponent implements OnInit {
   @Input() public valoresC: any[];
-  // @Input() public seleccionado = 0;
-  // @Input() public seleccionadoSubC = -1;
   @Output() public criterioSeleccionado = new EventEmitter<number>();
   @Output() public subCriterioSeleccionado = new EventEmitter<string>();
 
   textoSeleccion: string;
+
   constructor() { }
 
   ngOnInit() {
@@ -22,7 +21,7 @@ export class CriterionComponent implements OnInit {
   }
 
   selCriterio($event) {
-    const modo: number = Number($event.srcElement.value);
+    const modo: ModoBusqueda = Number($event.srcElement.value);
     switch (modo) {
     case 1:
       this.textoSeleccion = 'un estado';

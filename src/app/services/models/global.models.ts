@@ -3,8 +3,8 @@ export interface Global {
     estados: any[];
     agencias: any[];
     misiones: any[];
-    criterios: any[];
     valores: any[];
+    numLanzamientos: number;
   }
 
   export const globalInitialState: Global = {
@@ -12,6 +12,6 @@ export interface Global {
     estados: [],
     agencias: [],
     misiones: [],
-    criterios: [],
     valores: [],
+    numLanzamientos: 0,
   };

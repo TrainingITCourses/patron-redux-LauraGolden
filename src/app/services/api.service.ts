@@ -1,9 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { CargaLanzamientos, CargaEstados, CargaAgencias, CargaMisiones } from './global-store.actions';
+import {
+    CargaLanzamientos,
+    CargaEstados,
+    CargaAgencias,
+    CargaMisiones
+} from './global-store.actions';
 import { GlobalStore, GlobalSlideTypes } from './global-store.state';
-import { ModoBusqueda } from '../app.component';
+import { ModoBusqueda } from '../shared/criterion/criterion-modo';
 
 
 @Injectable()
